@@ -1,0 +1,49 @@
+#include <iostream>
+
+#define MONTH 12
+
+using namespace std;
+
+int main() {
+
+	int high[MONTH] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+	/* Compiler doesn't check whether indices are valid */
+	//high[12] = 4; //Error
+
+	/*const and array*/
+
+	//const int temp = 0;
+	//temp = 4;
+
+	cout << "============================Omittingsize=================" << endl;
+	/*Omittingsize*/
+	const int power_of_twos[] = { 1, 2, 4, 8, 16, 32, 64 };
+	cout << "sizeof power_of_tows : " << sizeof(power_of_twos) << endl;
+	for (int i = 0; i < sizeof power_of_twos / sizeof power_of_twos[0]; i++)
+		cout << power_of_twos[i] <<" ";
+	cout << endl;
+	float arr4[sizeof(int) + 1]; // OK!, 양의 정수이면 다 가능 
+
+	/* Subtraction */
+	cout << "================Subtraction=======================" << endl;
+	double arr[10];
+	double* ptr1 = &arr[1], *ptr2 = &arr[3];
+
+	//int * ptr3 = ptr1 + ptr2; // Not Working 
+	int i = ptr2 - ptr1;
+	cout << i << endl; // 포인터의 차이로 인덱스의 간격이 얼마나 있는지 알  수 있다 
+
+	cout << "===================Pointer && Array================" << endl;
+	int Parr[10];
+
+	int num = sizeof(Parr) / sizeof (Parr[0]);
+	for (int i = 0; i < num; i++)
+		arr[i] = (i + 1) * 100;
+	int* ptr = Parr;
+	cout << ptr <<" " << Parr <<" " << arr[0] << endl;
+
+	//Note : Parr += 2; Not
+
+	return 0;
+
+}

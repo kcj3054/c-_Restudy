@@ -1,0 +1,136 @@
+
+// sort
+============quick sort====================
+// 1 | 2 | 3 | 4 | 5 | 8
+//      || a   b ||
+//
+
+// [begin, end)
+void quick(int *begin, int *end) {
+	if(begin == end) return;
+	int *a = begin, *b = end - 1;
+	while(a != b) {
+		if(*a > *(a + 1)) {
+			int *t = *a;
+			*a = *(a + 1);
+			*(a + 1) = *t;
+			a++;
+		} else {
+			int *t = *a;
+			*a = *b;
+			*b = *t;
+			b--;
+		}
+	}
+	quick(begin, a);
+	quick(a + 1, end);
+}
+[begin, end)
+==================
+
+===============merge sort==================
+어떠한 경우에도 nlong 
+
+// [1, 2] x
+//  0  1  2
+// [begin, end)  [1, 2]  // begin = 0, end = 2
+
+================
+void merge(int *begin, int *end) {
+	if(begin + 1 >= end) return;  // 들어오느 배열이 1이하일 경우 종료 
+	int mid = (begin + end) / 2;
+	merge(begin, mid);
+	merge(mid, end);
+
+	int *v = new int[end - begin];
+	int *a = begin, *b = mid;
+	
+	for(int i=0; i<end - begin; i++) {
+		if(b == end) {
+			v[i] = *a++;
+		} else if(a == mid) {
+			v[i] = *b++;
+		} else if(*a < *b) {
+			v[i] = *a++;
+		} else {
+			v[i] = *b++;
+		}
+	}
+
+	for(int i=0; i<end-begin; i++) {
+		begin[i] = v[i];
+	}
+	
+	delete[] v;
+}
+
+========================================
+
+
+// a < b
+bool compare(char *a, char *b) {
+	for(; *a && *b; a++, b++) {
+		if(*a == *b) continue;
+		if(is_big(*a) && is_big(*b)) return *a < *b;
+		if(is_big(*a)) return true;
+		if(is_big(*b)) return false;
+		
+		if(is_num(*a) && is_num(*b)) return *a < *b;
+		if(is_num(*a)) return true;
+		if(is_num(*b)) return false;	
+		
+		if(is_small(*a) && is_small(*b)) return *a < *b;
+		if(is_small(*a)) return true;
+		if(is_small(*b)) return false;
+	}
+	if (*a) return false;
+	if (*b) return true;
+	return false;
+}
+
+int main() {
+	char **arr;
+	char **out;
+
+	int n;
+	cin >> n;
+
+	arr = new char*[n];
+	for(int i=0; i<n; i++) {
+		arr[i] = new char[50];
+		scanf("%s", arr[i]);
+	}
+	merge(arr, arr + n, compare, out);
+}
+
+
+===========
+	char **arr;
+	char **out;
+
+	int n;
+	cin >> n;
+
+	// arr = new char*[n];
+	// for(int i=0; i<n; i++) {
+	// 	arr[i] = new char[50];
+	// 	scanf("%s", arr[i]);
+	// }
+	// merge(arr, arr + n, compare, out);
+
+	char s[10000];
+	//
+	//
+	// arr
+	// [1] [2] [3] [] [] []
+	// 
+	// [1]: "auto" 
+	int c = 0;
+	arr = new char*[n];
+	for(int i=0; i<n; i++) {
+		arr[i] = new char[50];
+		for(int j=0; s[c] != ','; j++, c++) {
+			arr[i][j] = s[c];
+		}
+		c++;
+	}
